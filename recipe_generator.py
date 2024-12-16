@@ -1,13 +1,19 @@
 import os
 from openai import OpenAI
+from typing import Optional, Dict, Any
 
 # the newest OpenAI model is "gpt-4o" which was released May 13, 2024.
 # do not change this unless explicitly requested by the user
 MODEL = "gpt-4o"
 
-client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+def get_openai_client() -> Optional[OpenAI]:
+    """OpenAIクライアントを取得する"""
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        return None
+    return OpenAI(api_key=api_key)
 
-def generate_recipe(ingredient1: str, ingredient2: str) -> dict:
+def generate_recipe(ingredient1: str, ingredient2: str) -> Dict[str, Any]:
     """
     OpenAI APIを使用してレシピを生成する
     
@@ -18,6 +24,18 @@ def generate_recipe(ingredient1: str, ingredient2: str) -> dict:
     Returns:
         レシピ情報を含む辞書
     """
+    client = get_openai_client()
+    if not client:
+        return {
+            "error": "OpenAI APIキーが設定されていません",
+            "dish_name": "エラー",
+            "description": "申し訳ありません。APIキーが設定されていないため、レシピを生成できません。",
+            "ingredients": [],
+            "steps": [],
+            "cooking_time": "N/A",
+            "difficulty": "N/A",
+            "tips": "OpenAI APIキーを設定してください"
+        }
     prompt = f"""
     {ingredient1}と{ingredient2}を使用した料理のレシピを考えてください。
     以下のJSON形式で回答してください：
