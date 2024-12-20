@@ -743,6 +743,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "openai" },
     { name = "pandas" },
+    { name = "requests" },
     { name = "streamlit" },
 ]
 
@@ -750,6 +751,7 @@ dependencies = [
 requires-dist = [
     { name = "openai", specifier = ">=1.57.4" },
     { name = "pandas", specifier = ">=2.2.3" },
+    { name = "requests", specifier = ">=2.32.3" },
     { name = "streamlit", specifier = ">=1.41.1" },
 ]
 
