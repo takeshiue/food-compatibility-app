@@ -1,6 +1,5 @@
 import pandas as pd
 
-# Basic ingredients database
 INGREDIENTS = {
     "野菜": [
         "トマト", "きゅうり", "なす", "かぼちゃ", "じゃがいも",
@@ -21,12 +20,10 @@ INGREDIENTS = {
 }
 
 def get_all_ingredients():
-    """全ての食材のリストを返す"""
     all_ingredients = []
     for category in INGREDIENTS.values():
         all_ingredients.extend(category)
     return sorted(all_ingredients)
 
 def get_ingredients_by_category():
-    """カテゴリー別の食材辞書を返す"""
     return INGREDIENTS

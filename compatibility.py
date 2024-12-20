@@ -2,38 +2,13 @@ import random
 import hashlib
 
 def calculate_compatibility(ingredient1: str, ingredient2: str) -> int:
-    """
-    2つの食材の相性を計算する
-    
-    Args:
-        ingredient1: 最初の食材
-        ingredient2: 2番目の食材
-    
-    Returns:
-        0-100の相性度
-    """
-    # 食材の組み合わせから一意のハッシュを生成
     combined = f"{ingredient1},{ingredient2}".encode('utf-8')
     hash_value = hashlib.md5(combined).hexdigest()
-    
-    # ハッシュの最初の4文字を16進数から10進数に変換
     number = int(hash_value[:4], 16)
-    
-    # 0-100の範囲に変換
     compatibility = number % 101
-    
     return compatibility
 
 def get_compatibility_comment(score: int) -> str:
-    """
-    相性度に基づいてコメントを生成する
-    
-    Args:
-        score: 相性度（0-100）
-    
-    Returns:
-        相性に関するコメント
-    """
     if score >= 90:
         comments = [
             "まさに運命の出会い！この組み合わせは絶品です！",

@@ -2,28 +2,15 @@ import os
 from openai import OpenAI
 from typing import Optional, Dict, Any
 
-# the newest OpenAI model is "gpt-4o" which was released May 13, 2024.
-# do not change this unless explicitly requested by the user
 MODEL = "gpt-4o"
 
 def get_openai_client() -> Optional[OpenAI]:
-    """OpenAIクライアントを取得する"""
     api_key = os.environ.get("OPENAI_API_KEY")
     if not api_key:
         return None
     return OpenAI(api_key=api_key)
 
 def generate_recipe(ingredient1: str, ingredient2: str) -> Dict[str, Any]:
-    """
-    OpenAI APIを使用してレシピを生成する
-    
-    Args:
-        ingredient1: 最初の食材
-        ingredient2: 2番目の食材
-    
-    Returns:
-        レシピ情報を含む辞書
-    """
     client = get_openai_client()
     if not client:
         return {
